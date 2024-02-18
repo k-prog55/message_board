@@ -35,8 +35,8 @@ public class CreateServlet extends HttpServlet {
 
         String _token = request.getParameter("_token");
         if(_token != null && _token.equals(request.getSession().getId())) {
-            
-            EntityManager em = DBUtil.createEntityManager();  //データベースとの接続
+
+            EntityManager em = DBUtil.createEntityManager();  //データベースのトランザクションを始める
             em.getTransaction().begin();
 
             Message m = new Message();
@@ -51,9 +51,9 @@ public class CreateServlet extends HttpServlet {
             m.setCreated_at(currentTime);
             m.setUpdated_at(currentTime);
 
-            em.persist(m);  //データベースへの保存
-            em.getTransaction().commit();
-            em.close();
+            em.persist(m);  //Messageオブジェクトをデータベースに保存
+            em.getTransaction().commit(); //トランザクションの完了
+            em.close(); //EntityManagerを閉じる
 
             response.sendRedirect(request.getContextPath() + "/index");  //indexページへのリダイレクト
         }
