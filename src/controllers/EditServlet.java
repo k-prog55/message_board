@@ -35,13 +35,15 @@ public class EditServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
 
         // 該当のIDのメッセージ1件のみをデータベースから取得
-        Message m = em.find(Message.class, Integer.parseInt(request.getParameter("id")));
+        //このidはshow.jspでパラメータに登録されたid=${message.id}
+        //Message.classはMessage.javaを示す
+        Message m = em.find(Message.class, Integer.parseInt(request.getParameter("id"))); 
 
         em.close();
 
         // メッセージ情報とセッションIDをリクエストスコープに登録
         request.setAttribute("message", m);
-        request.setAttribute("_token", request.getSession().getId()); //editページを開いた時点で合言葉「_token」をリクエストスコープに登録
+        request.setAttribute("_token", request.getSession().getId()); //_tokenとセッションID（編集→更新の一連のセッションID)を紐づけて登録
 
         // メッセージIDをセッションスコープに登録
         request.getSession().setAttribute("message_id", m.getId());
