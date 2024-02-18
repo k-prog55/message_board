@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<label for="title">タイトル</label><br />
+<label for="title">タイトル</label><br />  <!-- <label for="title">でid="title"のフォームと紐付け。ラベルをクリックするとそのテキストフィールドが選択される -->
 <input type="text" name="title" id="title" value="${message.title}" />
 <br /><br />
 
 <label for="content_msg">メッセージ</label><br />
-<input type="text" name="content" id="content_msg" value="${message.content}" />
+<input type="text" name="content" id="content_msg" value="${message.content}" /> <!-- typeでフォームの種類を、nameでサーブレットとの共通名をvalueで初期値の値を設定 -->
 <br /><br />
 
 <input type="hidden" name="_token" value="${_token}" />
-<button type="submit">投稿</button>
+<button type="submit">投稿</button> <!-- このbuttonを押すと、action属性で設定されたURLに送信される -->
